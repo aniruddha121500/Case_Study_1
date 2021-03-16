@@ -1,0 +1,134 @@
+---
+title: 'Case Study #1'
+author: "Aniruddha Mukherjee"
+date: "3/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Setup
+
+#### Libraries Used in this Case Study
+
+Below are the libraries used for this case study.
+```{r, echo = TRUE}
+library(ggplot2)
+```
+
+#### Reading the Data
+
+Below is a sample output of the data that we are given. Note that the column names have been added by us.
+```{r, echo = TRUE}
+cdi = read.table("CDI.txt", na.strings=".", header=FALSE,
+col.names = c("ID", "County", "State", "Land_Area", "Total_Pop", "PercentPop18_24", "PercentPop65_",
+              "Num_Active_Phy", "Num_Hosp_Beds", "Total_Serious_crimes", "Percent_HS",
+              "Percent_Bachelors", "Percent_Poverty", "Percent_Unemployment", "Per_Capita_Income", 
+              "Total_Personal_Income", "Geographic_region"))
+head(cdi)
+```
+
+To verify that the data that we have read has the correct dimensions, they are displayed below. The data should have $440$ rows and $17$ columns.
+```{r, echo = TRUE}
+dim(cdi)
+```
+
+### Summary of Variables
+
+A display of the summary statistics of the quantitative variables are shown below
+
+```{r, echo = TRUE}
+
+# Summary Statistics
+# cdi.PercentPop18_24 = summary(cdi$PercentPop18_24)
+# cdi.PercentPop65_ = summary(cdi$PercentPop65_)
+# cdi.Num_Active_Phy = summary(cdi$Num_Active_Phy)
+# cdi.Num_Hosp_Beds = summary(cdi$Num_Hosp_Beds)
+# cdi.Total_Serious_crimes = summary(cdi$Total_Serious_crimes)
+# cdi.Percent_HS = summary(cdi$Percent_HS)
+# cdi.Percent_Bachelors = summary(cdi$Percent_Bachelors)
+# cdi.Percent_Poverty = summary(cdi$Percent_Poverty)
+# cdi.Percent_Unemployment = summary(cdi$Percent_Unemployment)
+# cdi.Per_Capita_Income = summary(cdi$Per_Capita_Income)
+# cdi.Total_Personal_Income = summary(cdi$Total_Personal_Income)
+# 
+# # Histogram for Geographic Region
+# hist(cdi$Geographic_region)
+# 
+# # Linear Regression with Suggested Variables ?
+# cdimodel0 = lm(Num_Active_Phy ~ Total_Pop + Land_Area + Total_Personal_Income, cdi)
+# 
+# cdimodel0.summary = summary(cdimodel0)
+# 
+# print(cdimodel0.summary) # Al variables seem significant especially Total_Personal_Income
+
+# Checking for model assumptions
+
+  # Check for Linearity
+  #
+
+  # Check for Homoscdedacity
+  # residual plot
+
+  # Check for Independence
+
+  # Check for Normality
+
+
+# Linear Regression
+# cdimodel1 = lm(Num_Active_Phy ~ Total_Serious_crimes + Per_Capita_Income + Num_Hosp_Beds, cdi)
+
+# cdimodel1.summary = summary(cdimodel1)
+
+# print(cdimodel1.summary) # Total_Serious_crimes p-val (0.0636) > 0.05
+
+# cdimodel2 = lm(Num_Active_Phy ~ Per_Capita_Income + Num_Hosp_Beds, cdi)
+
+# cdimodel2.summary = summary(cdimodel2)
+
+# print(cdimodel2.summary)
+
+# anova_mod1_mod2 = anova(cdimodel1, cdimodel2)
+
+# print(anova_mod1_mod2) # Fail to reject null, proceed with cdimodel2
+
+# Analysis with
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
