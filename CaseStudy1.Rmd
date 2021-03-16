@@ -78,7 +78,11 @@ Based on the histogram above, there seems to be a few outliers in the number of 
 A scatter plot of the number of active nonfederal physicians during $1990$ in each county is shown below.
 ```{r, echo = TRUE}
 ggplot(cdi.id_phy, aes(x = ID, y = Num_Active_Phy)) + 
-  geom_point( size = 1, shape = 23, color = "red")
+  geom_point( size = 1, shape = 23, color = "red" ) + 
+              ylab("Number of Active Physicians") +  xlab("ID of Counties") +
+              ggtitle("Scatter Plot of the Number of Physicians in Each County") + 
+  theme_update(plot.title = element_text(hjust = 0.5)) + 
+  theme_minimal()
 ```
 
 
@@ -115,7 +119,11 @@ barplot(height = cdi.id_hos$Num_Hosp_Beds, names = cdi.id_hos$ID, xlab = "ID of 
 Based on the histogram above, there seems to be a few outliers in the number of hospital beds. To explore this idea, a scatter plot is shown below.
 ```{r, echo = TRUE}
 ggplot(cdi.id_hos, aes(x = ID, y = Num_Hosp_Beds)) + 
-  geom_point( size = 1, shape = 23, color = "red")
+  geom_point( size = 1, shape = 23, color = "red") + 
+              ylab("Number of Hospital Beds") +  xlab("ID of Counties") +
+              ggtitle("Scatter Plot of the Number of Hospital Beds in Each County") + 
+  theme_update(plot.title = element_text(hjust = 0.5)) + 
+  theme_minimal()
 ```
 
 
