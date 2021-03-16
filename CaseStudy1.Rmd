@@ -63,6 +63,16 @@ cdi.Num_Active_Phy
 
 
 
+A histogram of the number of active nonfederal physicians during $1990$ in each county is shown below.
+```{r, echo = TRUE}
+cdi.id_phy = as.data.frame(cdi[c("ID", "Num_Active_Phy")])
+barplot(height = cdi.id_phy$Num_Active_Phy, names = cdi.id_phy$ID, xlab = "ID of Counties",
+        ylab = "Number of Physicians", main = "Number of Physicians by County", 
+        col = c("red", "green", "blue", "yellow"), border = c("red", "green", "blue", "yellow"))
+```
+
+
+
 The summary statistic of the number of beds, cribs and bassinets during $1990$ is shown below is displayed below.
 ```{r, echo = TRUE}
 cdi.Num_Hosp_Beds = summary(cdi$Num_Hosp_Beds)
@@ -70,6 +80,14 @@ cdi.Num_Hosp_Beds
 ```
 
 
+
+A histogram of the number of beds, cribs and bassinets during $1990$ in each county is shown below.
+```{r, echo = TRUE}
+cdi.id_phy = as.data.frame(cdi[c("ID", "Num_Hosp_Beds")])
+barplot(height = cdi.id_phy$Num_Hosp_Beds, names = cdi.id_phy$ID, xlab = "ID of Counties",
+        ylab = "Number of Hospital Beds", main = "Number of Hospital Beds by County", 
+        col = c("red", "green", "blue", "yellow"), border = c("red", "green", "blue", "yellow"))
+```
 
 The summary statistic of the total number of serious crimes in 1990 as reported by law enforcement agencies is displayed below.
 ```{r, echo = TRUE}
@@ -138,6 +156,7 @@ ggplot(cdi, aes(x = Geographic_region, fill = Geographic_region)) +
 
 
 
+<!-- Include Analysis Later -->
 ```{r, echo = TRUE}
 # # Linear Regression with Suggested Variables ?
 # cdimodel0 = lm(Num_Active_Phy ~ Total_Pop + Land_Area + Total_Personal_Income, cdi)
