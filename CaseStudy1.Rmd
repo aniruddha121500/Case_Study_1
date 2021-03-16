@@ -37,7 +37,7 @@ dim(cdi)
 
 ### Summary of Variables
 
-A display of the summary statistics of the quantitative variables are shown below.
+A display of the summary statistics of some of the quantitative variables are shown below. Along with the summary statistcs, a histogram and an appropriate scatter plot for a few variables are also shown below. This section aims to get the reader a better understanding of the variables that are present in this report. 
 
 The summary statistics of the percent of the population that is aged $18$ to $24$ is displayed below.
 ```{r, echo = TRUE}
@@ -71,6 +71,27 @@ barplot(height = cdi.id_phy$Num_Active_Phy, names = cdi.id_phy$ID, xlab = "ID of
         col = c("red", "green", "blue", "yellow"), border = c("red", "green", "blue", "yellow"))
 ```
 
+Based on the histogram above, there seems to be a few outliers in the number of Physicians. To explore this idea, a scatter plot is shown below.
+
+
+
+A scatter plot of the number of active nonfederal physicians during $1990$ in each county is shown below.
+```{r, echo = TRUE}
+ggplot(cdi.id_phy, aes(x = ID, y = Num_Active_Phy)) + 
+  geom_point( size = 1, shape = 23, color = "red")
+```
+
+
+
+Based on the scatter plot above, two conties seem to have a much higher number of physicians than all other counties.
+The two counties with a higher number of physicians are shown below.
+```{r, echo = TRUE}
+cdi.df <- as.data.frame(cdi)
+head(cdi.df[ order(-cdi.df$Num_Active_Phy), ], 2)
+```
+
+As seen in the output above, the two counties with the greatest number of physicians in 1990 are **Los Angeles** county and **Cook** county.
+
 
 
 The summary statistic of the number of beds, cribs and bassinets during $1990$ is shown below is displayed below.
@@ -83,11 +104,31 @@ cdi.Num_Hosp_Beds
 
 A histogram of the number of beds, cribs and bassinets during $1990$ in each county is shown below.
 ```{r, echo = TRUE}
-cdi.id_phy = as.data.frame(cdi[c("ID", "Num_Hosp_Beds")])
-barplot(height = cdi.id_phy$Num_Hosp_Beds, names = cdi.id_phy$ID, xlab = "ID of Counties",
+cdi.id_hos = as.data.frame(cdi[c("ID", "Num_Hosp_Beds")])
+barplot(height = cdi.id_hos$Num_Hosp_Beds, names = cdi.id_hos$ID, xlab = "ID of Counties",
         ylab = "Number of Hospital Beds", main = "Number of Hospital Beds by County", 
         col = c("red", "green", "blue", "yellow"), border = c("red", "green", "blue", "yellow"))
 ```
+
+
+
+Based on the histogram above, there seems to be a few outliers in the number of hospital beds. To explore this idea, a scatter plot is shown below.
+```{r, echo = TRUE}
+ggplot(cdi.id_hos, aes(x = ID, y = Num_Hosp_Beds)) + 
+  geom_point( size = 1, shape = 23, color = "red")
+```
+
+
+
+Based on the scatter plot above, three conties seem to have a much higher number of hospital beds than all other counties.
+The three counties with a higher number of physicians are shown below.
+```{r, echo = TRUE}
+head(cdi.df[ order(-cdi.df$Num_Hosp_Beds), ], 3)
+```
+
+The three counties with the most number of hospital beds are **Los Angeles** county, **Cook** county and **Harris** county. 
+
+
 
 The summary statistic of the total number of serious crimes in 1990 as reported by law enforcement agencies is displayed below.
 ```{r, echo = TRUE}
