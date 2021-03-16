@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Below are the libraries used for this case study.
 ```{r, echo = TRUE}
 library(ggplot2)
+library(usmap)
 ```
 
 #### Reading the Data
@@ -125,6 +126,26 @@ cdi.Percent_Unemployment = summary(cdi$Percent_Unemployment)
 cdi.Percent_Unemployment
 ```
 
+
+<!-- WORK ON LATER -->
+<!-- ```{r, echo = TRUE} -->
+<!-- cdi.df = as.data.frame(cdi)[c("State", "County", "Total_Pop")] -->
+<!-- colnames(cdi.df) <- c("state", "county", "total_pop") -->
+<!-- fips_needed = fips(cdi.df_reduced$state) -->
+<!-- cdi.df$fips <- fips_needed -->
+<!-- cdi.df_reduced = subset(cdi.df, select = c("fips", "county", "total_pop")) -->
+
+<!-- plot_usmap(data = cdi.df_reduced, values = "total_pop", regions = "counties", color = "lightblue") +  -->
+<!--   labs(title = "U.S. Counties",  -->
+<!--        subtitle = "Estimated County Population in 1990") -->
+
+<!-- ``` -->
+
+
+Histogram of Geographic Region is shown below.
+```{r, echo = TRUE}
+hist(cdi$Geographic_region)
+```
 
 ```{r, echo = TRUE}
 
