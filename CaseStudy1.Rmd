@@ -39,55 +39,96 @@ dim(cdi)
 
 A display of the summary statistics of the quantitative variables are shown below.
 
-The summary statistic of the percent of the population that is aged $18$ to $24$.
+The summary statistics of the percent of the population that is aged $18$ to $24$ is displayed below.
 ```{r, echo = TRUE}
-
+cdi.PercentPop18_24 = summary(cdi$PercentPop18_24)
+cdi.PercentPop18_24
 ```
 
-The summary statistic of the percent of the population that is aged $65$ or older.
-```{r, echo = TRUE}
 
+
+The summary statistics of the percent of the population that is aged $65$ or older is displayed below.
+```{r, echo = TRUE}
+cdi.PercentPop65_ = summary(cdi$PercentPop65_)
+cdi.PercentPop65_
 ```
 
-The summary statistic of the number of active nonfederal physicians during $1990$ is shown below.
-```{r, echo = TRUE}
 
+
+The summary statistic of the number of active nonfederal physicians during $1990$ is shown below is displayed below.
+```{r, echo = TRUE}
+cdi.Num_Active_Phy = summary(cdi$Num_Active_Phy)
+cdi.Num_Active_Phy
 ```
 
-The summary statistic of the number of beds, cribs and bassinets during $1990$ is shown below.
-```{r, echo = TRUE}
 
+
+The summary statistic of the number of beds, cribs and bassinets during $1990$ is shown below is displayed below.
+```{r, echo = TRUE}
+cdi.Num_Hosp_Beds = summary(cdi$Num_Hosp_Beds)
+cdi.Num_Hosp_Beds
 ```
 
-The summary statistic of the percent of the population that is aged $65$ or older.
-```{r, echo = TRUE}
 
+
+The summary statistic of the total number of serious crimes in 1990 as reported by law enforcement agencies is displayed below.
+```{r, echo = TRUE}
+cdi.Total_Serious_crimes = summary(cdi$Total_Serious_crimes)
+cdi.Total_Serious_crimes
 ```
 
-The summary statistic of the percent of the population that is aged $65$ or older.
-```{r, echo = TRUE}
 
+
+The summary statistic of the percent of the population that completed $12$ or more years of education (high school education) is displayed below.
+```{r, echo = TRUE}
+cdi.Percent_HS = summary(cdi$Percent_HS)
+cdi.Percent_HS
 ```
 
-The summary statistic of the percent of the population that is aged $65$ or older.
-```{r, echo = TRUE}
 
+
+The summary statistic of the percent of the adult population with bachelor's degrees is displayed below.
+```{r, echo = TRUE}
+cdi.Percent_Bachelors = summary(cdi$Percent_Bachelors)
+cdi.Percent_Bachelors
 ```
+
+
+
+The summary statistic of the percent of CDI population with income below poverty level is displayed below.
+```{r, echo = TRUE}
+cdi.Percent_Poverty = summary(cdi$Percent_Poverty)
+cdi.Percent_Poverty
+```
+
+
+
+The summary statistic of the per capita income of 1990 CDI population (in U.S. dollars) is displayed below.
+```{r, echo = TRUE}
+cdi.Per_Capita_Income = summary(cdi$Per_Capita_Income)
+cdi.Per_Capita_Income
+```
+
+
+
+The summary statistic of the total personal income of 1990 CDI population (in millions of U.S. dollars) is displayed below.
+```{r, echo = TRUE}
+cdi.Total_Personal_Income = summary(cdi$Total_Personal_Income)
+cdi.Total_Personal_Income
+```
+
+
+
+The summary statistics of the percent of 1990 CDI labor force that is unemployed is displayed below.
+```{r, echo = TRUE}
+cdi.Percent_Unemployment = summary(cdi$Percent_Unemployment)
+cdi.Percent_Unemployment
+```
+
 
 ```{r, echo = TRUE}
 
 # Summary Statistics
-# cdi.PercentPop18_24 = summary(cdi$PercentPop18_24) DONE
-# cdi.PercentPop65_ = summary(cdi$PercentPop65_)     DONE
-# cdi.Num_Active_Phy = summary(cdi$Num_Active_Phy)   DONE
-# cdi.Num_Hosp_Beds = summary(cdi$Num_Hosp_Beds)     DONE
-# cdi.Total_Serious_crimes = summary(cdi$Total_Serious_crimes)
-# cdi.Percent_HS = summary(cdi$Percent_HS)
-# cdi.Percent_Bachelors = summary(cdi$Percent_Bachelors)
-# cdi.Percent_Poverty = summary(cdi$Percent_Poverty)
-# cdi.Percent_Unemployment = summary(cdi$Percent_Unemployment)
-# cdi.Per_Capita_Income = summary(cdi$Per_Capita_Income)
-# cdi.Total_Personal_Income = summary(cdi$Total_Personal_Income)
 # 
 # # Histogram for Geographic Region
 # hist(cdi$Geographic_region)
