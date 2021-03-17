@@ -82,7 +82,7 @@ ggplot(cdi.id_phy, aes(x = ID, y = Num_Active_Phy)) +
               ylab("Number of Active Physicians") +  xlab("ID of Counties") +
               ggtitle("Scatter Plot of the Number of Physicians in Each County") + 
   theme_update(plot.title = element_text(hjust = 0.5)) + 
-  theme_minimal()
+  theme_classic()
 ```
 
 
@@ -123,7 +123,7 @@ ggplot(cdi.id_hos, aes(x = ID, y = Num_Hosp_Beds)) +
               ylab("Number of Hospital Beds") +  xlab("ID of Counties") +
               ggtitle("Scatter Plot of the Number of Hospital Beds in Each County") + 
   theme_update(plot.title = element_text(hjust = 0.5)) + 
-  theme_minimal()
+  theme_classic()
 ```
 
 
