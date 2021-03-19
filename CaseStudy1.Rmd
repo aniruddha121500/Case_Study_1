@@ -2,7 +2,9 @@
 title: 'Case Study #1'
 author: "Aniruddha Mukherjee"
 date: "3/16/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -198,53 +200,173 @@ Histogram of Geographic Region is shown below.
 ```{r, echo = TRUE}
 ggplot(cdi, aes(x = Geographic_region, fill = Geographic_region)) +
   geom_bar(position = "identity", bins = 4, fill = c("red", "green", "blue", "yellow")) +
-  labs(title = "Distribution of Geographic region", x = "Geographic Region") + 
+  labs(title = "Distribution of Geographic Region", x = "Geographic Region") + 
   scale_x_discrete(limits=c("NE", "NC", "S", "W")) + 
   theme_minimal() + ggeasy::easy_center_title()
 ```
 
 
+## Statistical Analysis
 
-<!-- Include Analysis Later -->
 ```{r, echo = TRUE}
-# # Linear Regression with Suggested Variables ?
-# cdimodel0 = lm(Num_Active_Phy ~ Total_Pop + Land_Area + Total_Personal_Income, cdi)
-# 
-# cdimodel0.summary = summary(cdimodel0)
-# 
-# print(cdimodel0.summary) # Al variables seem significant especially Total_Personal_Income
+cdi = read.table("CDI.txt", na.strings=".", header=FALSE,
+col.names = c("ID", "County", "State", "Land_Area", "Total_Pop", "PercentPop18_24", "PercentPop65_",
+              "Num_Active_Phy", "Num_Hosp_Beds", "Total_Serious_crimes", "Percent_HS",
+              "Percent_Bachelors", "Percent_Poverty", "Percent_Unemployment", "Per_Capita_Income", 
+              "Total_Personal_Income", "Geographic_region"))
+```
 
-# Checking for model assumptions
+Many factors can have an effect in the number of active physicians in a county. Based on the county Demographic Information (CDI) that we are provided with, we hypothesize that the total estimated population in a county in 1990, the total land area of the county and the total personal income in 1990 of the residents of a county best predict the number of active physicians in a county.The rationale behind these three variables is as follows: Higher populations should require more medical practitioners to account for the increased population, greater land area should increase the number of medical facilities, and wealthier counties seek out medical practitioners more often than less affluent counties. Based on the hypothesized effect that total population, land area and total personal income have, the multiple linear regression model is shown below: 
 
-  # Check for Linearity
-  #
+$$
+  Y_i = \beta_{0}+ \beta_1X_{i1}+\beta_2X_{i2}+\beta_3X_{i3}+\varepsilon_i, \quad i = 1, \ldots, n
+$$
 
-  # Check for Homoscdedacity
-  # residual plot
+In the general form multiple linear regression above, $\beta_0$ represents the intercept of our regression model. Similarly, $\beta_1$, $\beta_2$, and $\beta_3$ represent the change in number of physicians that each predictor will have given one unit of increase in total population, land area and total personal income, respectively. 
 
-  # Check for Independence
+**Output 1.1**, shown below, displays summary of fitting the desired linear regression model with the three initial hypothesized variables. Among other relevant figures, the values for $\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, and $\hat\beta_3$ are shown below.
 
-  # Check for Normality
+```{r cdimodel0, echo = FALSE}
+cdimodel0 = lm(Num_Active_Phy ~ Total_Pop + Land_Area + Total_Personal_Income, cdi)
+cdimodel0.summary = summary(cdimodel0)
+print(cdimodel0.summary)
+```
+
+Based on **output 1.1**, as shown above we have the following, 
+\begin{align}
+  \begin{aligned}
+    \hat\beta_0 &= -13.32     \\
+    \hat\beta_1 &=  0.0008366 \\
+    \hat\beta_2 &= -0.06552   \\
+    \hat\beta_3 &=  0.09413   \\
+  \end{aligned}
+\end{align}
+
+Therefore, based on the output above, we have the following estimated multiple regression line:
+
+$$
+  \hat{Y_i} = -13.32  + 0.0008366 \cdot X_{i1} - 0.06552 \cdot X_{i2}+0.09413 \cdot X_{i3}
+$$
+
+Based on **output 1.1**, the $R^2$ is $0.9026$, this means that $90.26\%$ of the variation in number of physicians can be explained by our three predictors: total population, land area, and total personal income. Similary, based on **output 1.1**, the p-value of each of the estimated coefficients for our regression model is less than a significance level of $0.05$, i.e. $\alpha = 0.05$. Therefore all three predictors are signifincant. 
+
+To increase the accuracy of the model, we hypothesize that number of hospital beds, total serious crimes, and percent of population $65$ or older will significantly improve our ability to predict the number of physicians in a given county. By adding three more explanatory variables, the multiple linear regression model is as follows:
+
+$$
+  Y_i = \beta_{0}+ \beta_1X_{i1}+\beta_2X_{i2}+\beta_3X_{i3}+\beta_4X_{i4}+\beta_5X_{i5}+\beta_6X_{i6}+\varepsilon_i, \quad i = 1, \ldots, n
+$$
+
+In the general form multiple linear regression above, $\beta_0$ represents the intercept of our regression model. The representation of $\beta_1$, $\beta_2$, and $\beta_3$ are the same as the representation in our previous model.Similarly, $\beta_5$ and $\beta_6$ represent change in the number of physicians for a unit increase in the total number of hospital beds and total serious crimes, respectively. Finally, $\beta_4$ represents a $0.01$ increase in number of physicians given a $1\%$ increase in population aged $65$ or older.
 
 
-# Linear Regression
-# cdimodel1 = lm(Num_Active_Phy ~ Total_Serious_crimes + Per_Capita_Income + Num_Hosp_Beds, cdi)
+**Output 1.2**, shown below, displays summary of fitting the desired linear regression model with the six hypothesized variables. Among other relevant figures, the values for $\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, $\hat\beta_4$, $\hat\beta_5$, and $\hat\beta_6$ are shown below.
 
-# cdimodel1.summary = summary(cdimodel1)
+```{r cdimodel01, echo = FALSE}
+cdimodel01 = lm(Num_Active_Phy ~ Total_Pop + Land_Area + Total_Personal_Income + PercentPop65_ + Num_Hosp_Beds + Total_Serious_crimes, cdi)
+cdimodel01.summary = summary(cdimodel01)
+print(cdimodel01.summary)
+```
 
-# print(cdimodel1.summary) # Total_Serious_crimes p-val (0.0636) > 0.05
+Based on **output 1.2**, as shown above we have the following, 
+\begin{align}
+  \begin{aligned}
+    \hat\beta_0 &=   79.69     \\
+    \hat\beta_1 &=  -0.001916 \\
+    \hat\beta_2 &=   0.01964  \\
+    \hat\beta_3 &=   0.01403   \\
+    \hat\beta_4 &=  -15.77    \\
+    \hat\beta_5 &=   0.5161    \\
+    \hat\beta_6 &=  -0.000888 \\
+  \end{aligned}
+\end{align}
 
-# cdimodel2 = lm(Num_Active_Phy ~ Per_Capita_Income + Num_Hosp_Beds, cdi)
 
-# cdimodel2.summary = summary(cdimodel2)
 
-# print(cdimodel2.summary)
+Therefore, based on the output above, we have the following estimated multiple regression line:
 
-# anova_mod1_mod2 = anova(cdimodel1, cdimodel2)
+$$
+  \hat{Y_i} = 79.69-0.001916\cdot X_{i1}+0.01964\cdot X_{i2}+0.01403 \cdot X_{i3}-15.77\cdot X_{i4}+0.5161\cdot X_{i5}-0.000888\cdot X_{i6}
+$$
 
-# print(anova_mod1_mod2) # Fail to reject null, proceed with cdimodel2
+Based on **output 1.2**, the $R^2$ is $0.9568$, this means that $95.68\%$ of the variation in number of physicians can be explained by our six predictors: total population, land area, total personal income, percent of the county population aged $65$ or older, number of hospital beds, and total serious crimes. Similary, based on **output 1.2**, not all of the variables have a p-value less than a significance level of $0.05$, i.e. $\alpha = 0.05$. Therefore not all of the variables are significant. The two variables that have a p-value greater than a significance level of $5\%$ are **Land_Area** and **Total_Serious_Crimes**. 
 
-# Analysis with
+By dropping the two variables with a significance level below $0.05$ the following updated multiple linear regression model is obtained:
+
+$$
+  Y_i = \beta_{0}+ \beta_1X_{i1}+\beta_2X_{i2}+\beta_3X_{i3}+\beta_4X_{i4}+\varepsilon_i, \quad i = 1, \ldots, n
+$$
+
+In the general form multiple linear regression above, $\beta_0$ represents the intercept of our regression model. The representation of $\beta_1$ is the change in the number of physicians for a unit increase in total county population. The representation of $\beta_2$  is the change in the number of physicians for a unit increase in total personal income. The representation of $\beta_3$ is  a $0.01$ increase in number of physicians given a $1\%$ increase in population aged $65$ or older. Finally, $\beta_4$ is the change in the number of physicians in a unit change in the number of hospital beds.
+
+**Output 1.3**, shown below, displays summary of fitting the desired linear regression model with the four hypothesized variables. Among other relevant figures, the values for $\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, and $\hat\beta_4$ are shown below.
+
+```{r, echo = TRUE}
+cdimodel02 = lm(Num_Active_Phy ~ Total_Pop + Total_Personal_Income + PercentPop65_ + Num_Hosp_Beds, cdi)
+cdimodel02.summary = summary(cdimodel02)
+print(cdimodel02.summary)
+```
+
+
+Based on **output 1.2**, as shown above we have the following, 
+\begin{align}
+  \begin{aligned}
+    \hat\beta_0 &=   92.87    \\
+    \hat\beta_1 &=  -0.001930 \\
+    \hat\beta_2 &=   0.1402   \\
+    \hat\beta_3 &=  -14.89    \\
+    \hat\beta_4 &=   0.5015   \\
+  \end{aligned}
+\end{align}
+
+Therefore, based on the output above, we have the following estimated multiple regression line:
+
+$$
+  \hat{Y_i} = 92.87-0.001930\cdot X_{i1}+0.1402\cdot X_{i2}-14.89 \cdot X_{i3}+0.5015\cdot X_{i4}
+$$
+
+Based on **output 1.3**, the $R^2$ is $0.9563$, this means that $95.63\%$ of the variation in number of physicians can be explained by four predictors: total population, total personal income, percent of the county population aged $65$ or older, and number of hospital beds. Similary, based on **output 1.3**, the p-value of each of the estimated coefficients for our regression model is less than a significance level of $0.05$, i.e. $\alpha = 0.05$. Therefore all four predictors are signifincant.
+
+The model assumptions for a multiple linear regression model are the following, 
+
++ **Constant Variance**
+
++ **Normality**
+
++ **Uncorrelated Errors** 
+
+
+To check for **constant variance**, the residuals against the fitted values are shown below in **plot 1.1**.
+```{r, echo = TRUE}
+plot(cdimodel02, which = 1)
+```
+
+The scatter plot, **plot 1.1**, shows that the model suffers from heteroscedacity. 
+
+```{r, echo = FALSE}
+cdi.log <- log(cdi[,-c(1, 2, 3)])
+cdimodel02_log = lm(Num_Active_Phy ~ Total_Pop + Total_Personal_Income + PercentPop65_ + Num_Hosp_Beds, cdi.log)
+cdimodel02_log.summary = summary(cdimodel02_log)
+print(cdimodel02_log.summary)
+```
+
+
+```{r, echo = FALSE}
+plot(cdimodel02_log, which = 1)
+```
+
+The plot above has homoscedacity.
+
+
+```{r qq, echo = FALSE}
+plot(cdimodel02_log, which = 2)
+```
+
+QQ plot looks about normal.
+
+
+
+```{r, echp = FALSE}
+library(lmtest)
 ```
 
 
@@ -253,16 +375,16 @@ ggplot(cdi, aes(x = Geographic_region, fill = Geographic_region)) +
 
 
 
+<!-- Notice that the model shown in **output 1.1** and in the **output 1.3** both significant coefficients and their corresponding $R^2$ values are similar. An ANOVA test is performed to decide which model should be used in predicting the number of physicians in a given county with the following hypothesis tests. -->
 
+<!-- \begin{align} -->
+<!--   \begin{aligned} -->
+<!--     H_0 &= \text{ The reduced model is } \\ -->
+<!--     H_{\alpha} &= \text{ The full model is required } \\ -->
+<!--   \end{aligned} -->
+<!-- \end{align} -->
 
-
-
-
-
-
-
-
-
+<!-- Please note that reduced model refers to the  -->
 
 
 
